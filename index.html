@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V&C | Lễ Thành Hôn Hải Vương & Hoàng Cường</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ivory: '#FDFBF7',
+                        champagne: '#E6D7C3',
+                        gold: '#D4AF37',
+                        'champagne-gold': '#C5A059',
+                        'dusty-rose': '#D8A7B1',
+                        'blush-pink': '#F4E3E3',
+                        'forest-green': '#1E352B',
+                        'midnight-navy': '#0B192C',
+                        'navy-accent': '#1E2E45',
+                        paper: '#F9F6F0'
+                    },
+                    fontFamily: {
+                        playfair: ['"Playfair Display"', 'serif'],
+                        cormorant: ['"Cormorant Garamond"', 'serif'],
+                        script: ['"Great Vibes"', 'cursive'],
+                        sans: ['"Montserrat"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Fine Detail Aesthetics */
+        .bg-paper-grain {
+            background-color: #FDFBF7;
+            background-image: radial-gradient(#1E352B 0.4px, transparent 0.4px), radial-gradient(#1E352B 0.4px, #FDFBF7 0.4px);
+            background-size: 16px 16px;
+            background-position: 0 0, 8px 8px;
+            background-opacity: 0.03;
+        }
+
+        .gold-border-gradient {
+            border-image: linear-gradient(to bottom, #C5A059, #F4E3E3, #C5A059) 1;
+        }
+
+        .gold-text-glow {
+            text-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
+        }
+
+        /* Ambient Fairy Lights Canvas Animation Background */
+        #fairy-lights-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Classical Crest Line Art */
+        .crest-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        .crest-divider::before, .crest-divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+            max-width: 120px;
+        }
+
+        /* Image Parallax Effect Header */
+        .hero-img-container {
+            box-shadow: 0 20px 40px -15px rgba(11, 25, 44, 0.5);
+        }
+
+        /* Smooth reveal animation classes */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B192C;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C5A059;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-ivory text-midnight-navy font-cormorant selection:bg-champagne-gold selection:text-white relative overflow-x-hidden">
+
+    <!-- AUDIO PLAYER CONTROLLER -->
+    <div class="fixed bottom-6 right-6 z-50 flex items-center gap-2">
+        <button id="musicToggle" class="w-12 h-12 rounded-full bg-midnight-navy text-champagne-gold border border-champagne-gold/40 flex items-center justify-center shadow-2xl hover:scale-105 transition-all duration-300">
+            <i id="musicIcon" class="fas fa-music text-sm"></i>
+        </button>
+    </div>
+
+    <!-- RESPONSIVE NAVIGATION BAR -->
+    <nav class="fixed top-0 left-0 right-0 z-40 bg-midnight-navy/90 backdrop-blur-md border-b border-champagne-gold/20 text-ivory transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" class="font-playfair text-xl tracking-widest text-champagne-gold flex items-center gap-2">
+                <span class="font-script text-2xl text-ivory">V&C</span> TALE OF TWO HEARTS
+            </a>
+            
+            <!-- Desktop Links -->
+            <div class="hidden md:flex items-center space-x-8 font-sans text-xs uppercase tracking-widest text-ivory/80">
+                <a href="#hero" class="hover:text-champagne-gold transition">Trang Chủ</a>
+                <a href="#invitation" class="hover:text-champagne-gold transition">Thiệp Mời</a>
+                <a href="#story" class="hover:text-champagne-gold transition">Câu Chuyện</a>
+                <a href="#gallery" class="hover:text-champagne-gold transition">Bộ Ảnh</a>
+                <a href="#event" class="hover:text-champagne-gold transition">Thời Gian & Địa Điểm</a>
+                <a href="#rsvp" class="hover:text-champagne-gold transition">RSVP & Sổ Tay</a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobileMenuBtn" class="md:hidden text-champagne-gold focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobileMenu" class="hidden md:hidden bg-midnight-navy border-b border-champagne-gold/20 px-6 py-4 flex-col space-y-4 font-sans text-xs tracking-widest uppercase text-center">
+            <a href="#hero" class="block py-2 hover:text-champagne-gold transition mobile-link">Trang Chủ</a>
+            <a href="#invitation" class="block py-2 hover:text-champagne-gold transition mobile-link">Thiệp Mời chính thức</a>
+            <a href="#story" class="block py-2 hover:text-champagne-gold transition mobile-link">Câu Chuyện</a>
+            <a href="#gallery" class="block py-2 hover:text-champagne-gold transition mobile-link">Bộ Ảnh</a>
+            <a href="#event" class="block py-2 hover:text-champagne-gold transition mobile-link">Thời Gian & Địa Điểm</a>
+            <a href="#rsvp" class="block py-2 hover:text-champagne-gold transition mobile-link">RSVP & Sổ Tay</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION: THE ROYAL GARDEN ENTRANCE -->
+    <section id="hero" class="relative min-h-screen bg-midnight-navy text-ivory flex items-center justify-center pt-24 pb-16 px-4 overflow-hidden">
+        <!-- Canvas Lights -->
+        <canvas id="fairy-lights-canvas"></canvas>
+
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-navy-accent/50 via-midnight-navy to-midnight-navy pointer-events-none"></div>
+
+        <div class="relative z-20 max-w-5xl mx-auto text-center flex flex-col items-center">
+            
+            <!-- Royal Monogram Seal -->
+            <div class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-champagne-gold/40 flex items-center justify-center p-2 mb-6 bg-midnight-navy/60 backdrop-blur-sm shadow-xl">
+                <div class="w-full h-full rounded-full border-2 border-dashed border-champagne-gold/60 flex items-center justify-center">
+                    <span class="font-playfair text-2xl md:text-3xl font-light text-champagne-gold tracking-tighter">V&C</span>
+                </div>
+            </div>
+
+            <!-- Title & Subtitle -->
+            <p class="font-sans text-xs md:text-sm uppercase tracking-[0.3em] text-champagne-gold mb-3">Thiệp Mời Lễ Thành Hôn Hoàng Gia</p>
+            <h1 class="font-playfair text-3xl md:text-5xl lg:text-6xl font-light tracking-wide mb-2 text-ivory">
+                NGUYỄN PHẠM HẢI VƯƠNG
+            </h1>
+            <p class="font-script text-3xl md:text-4xl text-champagne-gold my-1">&</p>
+            <h1 class="font-playfair text-3xl md:text-5xl lg:text-6xl font-light tracking-wide mb-6 text-ivory">
+                LÊ HOÀNG CƯỜNG
+            </h1>
+
+            <!-- Main Feature Image Frame -->
+            <div class="hero-img-container relative p-3 bg-midnight-navy/80 border border-champagne-gold/40 rounded-t-full rounded-b-2xl max-w-sm md:max-w-md my-4">
+                <div class="relative overflow-hidden rounded-t-full rounded-b-xl border border-champagne-gold/20">
+                    <img id="heroImage" src="hoang cuong and hai vuong.png" alt="Nguyễn Phạm Hải Vương và Lê Hoàng Cường" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700 ease-out">
+                </div>
+                <div class="absolute -top-3 left-1/2 -translate-x-1/2 text-champagne-gold bg-midnight-navy px-4 text-xs tracking-widest font-sans border border-champagne-gold/30 rounded-full">
+                    <i class="fas fa-crown mr-1"></i> ROYAL GARDEN
+                </div>
+            </div>
+
+            <!-- Event Date & Location -->
+            <div class="mt-8 space-y-2">
+                <div class="flex items-center justify-center gap-4 text-sm md:text-base font-sans tracking-widest text-champagne-gold">
+                    <span>THỨ BẢY • 24.05.2025</span>
+                    <span>•</span>
+                    <span>17:30</span>
+                </div>
+                <p class="font-cormorant text-lg text-ivory/80">Sapphire Palace - 17 Nguyễn Lương Bằng, Q.7, TP.HCM</p>
+            </div>
+
+            <!-- Button to open original card modal -->
+            <a href="#invitation" class="mt-8 px-6 py-3 border border-champagne-gold text-champagne-gold font-sans text-xs tracking-widest uppercase rounded-full hover:bg-champagne-gold hover:text-midnight-navy transition duration-300">
+                <i class="fas fa-envelope-open-text mr-2"></i> Xem Thiệp Mời Gốc
+            </a>
+
+            <!-- Scroll Down Indicator -->
+            <a href="#invitation" class="mt-12 text-champagne-gold/80 hover:text-champagne-gold animate-bounce">
+                <i class="fas fa-chevron-down text-lg"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- OFFICIAL INVITATION CARD SECTION -->
+    <section id="invitation" class="py-20 md:py-28 px-4 bg-midnight-navy text-ivory relative border-t border-b border-champagne-gold/20">
+        <div class="max-w-4xl mx-auto text-center">
+            
+            <div class="mb-12 fade-in-up">
+                <span class="font-sans text-xs uppercase tracking-[0.25em] text-champagne-gold">Thiệp Mời Chính Thức</span>
+                <h2 class="font-playfair text-3xl md:text-5xl font-light text-ivory mt-2 mb-4">Hoàng Gia V&C</h2>
+                <p class="font-cormorant text-xl text-ivory/80 max-w-xl mx-auto">Trân trọng kính mời Quý vị đến tham dự buổi lễ gắn kết hành trình tình yêu của chúng tôi</p>
+            </div>
+
+            <!-- Card Display with Photo 3223 -->
+            <div class="relative max-w-xl mx-auto p-2 md:p-4 border border-champagne-gold/40 rounded-2xl bg-navy-accent/40 shadow-2xl fade-in-up">
+                <img src="3223.png" alt="Thiệp Mời Lễ Thành Hôn V&C" class="w-full h-auto rounded-xl border border-champagne-gold/30 shadow-lg">
+            </div>
+
+            <!-- Poem Section Extracted from Card 3223 -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 text-center max-w-3xl mx-auto fade-in-up">
+                <div class="p-6 border border-champagne-gold/20 rounded-xl bg-midnight-navy/60">
+                    <i class="fas fa-quote-left text-champagne-gold/40 text-2xl mb-4"></i>
+                    <p class="font-cormorant italic text-lg leading-relaxed text-champagne">
+                        "Một tình yêu được nâng niu tựa như viên ngọc quý, để hôm nay chúng tôi kết duyên trong sự chứng giám của gia đình và những người thân yêu nhất."
+                    </p>
+                </div>
+                <div class="p-6 border border-champagne-gold/20 rounded-xl bg-midnight-navy/60">
+                    <i class="fas fa-quote-right text-champagne-gold/40 text-2xl mb-4"></i>
+                    <p class="font-cormorant italic text-lg leading-relaxed text-champagne">
+                        "Trăm năm không phải là dài nếu có người cùng bước đi, yêu thương, thấu hiểu và cùng nhau xây dựng nên vương quốc của riêng ta."
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- OUR STORY SECTION -->
+    <section id="story" class="py-20 md:py-32 px-6 bg-paper-grain relative">
+        <div class="max-w-4xl mx-auto">
+            
+            <div class="text-center mb-16 fade-in-up">
+                <span class="font-sans text-xs uppercase tracking-[0.25em] text-champagne-gold">Hành Trình Yêu Thương</span>
+                <h2 class="font-playfair text-3xl md:text-5xl font-light text-forest-green mt-2 mb-4">Hành Trình Của Yêu Thương</h2>
+                <p class="font-cormorant text-xl text-gray-600 max-w-2xl mx-auto">
+                    "Hôm nay, chúng tôi chính thức về chung một nhà, cùng nhau mở ra hành trình mới – hành trình của yêu thương, trách nhiệm và hạnh phúc."
+                </p>
+            </div>
+
+            <!-- Timeline -->
+            <div class="space-y-16">
+                <!-- Item 1 -->
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 fade-in-up">
+                    <div class="w-full md:w-1/2 text-center md:text-right space-y-3">
+                        <span class="font-sans text-xs text-champagne-gold tracking-widest">GẶP GỠ</span>
+                        <h3 class="font-playfair text-2xl text-forest-green">Ánh Mắt Đầu Tiên</h3>
+                        <p class="text-gray-700 leading-relaxed font-cormorant text-lg">
+                            Giữa bầu không khí lãng mạn của khu vườn cổ điển, hai tâm hồn Hải Vương & Hoàng Cường đã tìm thấy nhau. Nụ cười rạng rỡ và sự thấu hiểu đã ngay lập tức kết nối hai trái tim.
+                        </p>
+                    </div>
+                    <div class="w-full md:w-1/2 flex justify-center">
+                        <div class="w-48 h-48 md:w-64 md:h-64 rounded-full p-2 border border-champagne-gold/40 shadow-lg bg-white overflow-hidden">
+                            <img src="hoang cuong and hai vuong.png" alt="Khoảnh khắc ngọt ngào" class="w-full h-full object-cover rounded-full">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PHOTO GALLERY SECTION -->
+    <section id="gallery" class="py-20 bg-midnight-navy text-ivory">
+        <div class="max-w-6xl mx-auto px-6">
+            
+            <div class="text-center mb-16 fade-in-up">
+                <span class="font-sans text-xs uppercase tracking-[0.25em] text-champagne-gold">Kỷ Niệm Đáng Nhớ</span>
+                <h2 class="font-playfair text-3xl md:text-5xl font-light text-ivory mt-2 mb-4">Bộ Ảnh Kỷ Niệm V&C</h2>
+                <div class="w-16 h-0.5 bg-champagne-gold mx-auto"></div>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- User Upload 1 -->
+                <div class="md:col-span-2 relative group overflow-hidden rounded-xl border border-champagne-gold/30 cursor-pointer shadow-2xl h-96 md:h-[480px]">
+                    <img src="hoang cuong and hai vuong.png" alt="Hải Vương & Hoàng Cường" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-midnight-navy/90 via-midnight-navy/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity flex flex-col justify-end p-6">
+                        <span class="font-sans text-xs text-champagne-gold tracking-widest uppercase">Khoảnh Khắc Hạnh Phúc</span>
+                        <h3 class="font-playfair text-2xl text-ivory">Nụ Cười Ngày Chung Đôi</h3>
+                    </div>
+                </div>
+
+                <!-- User Upload 2 -->
+                <div class="relative group overflow-hidden rounded-xl border border-champagne-gold/30 cursor-pointer shadow-xl h-96 md:h-[480px]">
+                    <img src="3223.png" alt="Thiệp cưới chính thức" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-midnight-navy/90 via-midnight-navy/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity flex flex-col justify-end p-6">
+                        <span class="font-sans text-xs text-champagne-gold tracking-widest uppercase">Thiệp Mời Hoàng Gia</span>
+                        <h3 class="font-playfair text-xl text-ivory">Thiệp Mời Chính Thức V&C</h3>
+                    </div>
+                </div>
+
+                <!-- Gallery Extra 1 -->
+                <div class="relative group overflow-hidden rounded-xl border border-champagne-gold/30 cursor-pointer shadow-xl h-72">
+                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80&w=800" alt="Bó hoa hồng" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-midnight-navy/90 via-transparent opacity-80 group-hover:opacity-95 transition-opacity flex flex-col justify-end p-6">
+                        <h3 class="font-playfair text-lg text-ivory">Bó Hoa Hoàng Gia</h3>
+                    </div>
+                </div>
+
+                <!-- Gallery Extra 2 -->
+                <div class="relative group overflow-hidden rounded-xl border border-champagne-gold/30 cursor-pointer shadow-xl h-72">
+                    <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&q=80&w=800" alt="Đèn trang trí" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-midnight-navy/90 via-transparent opacity-80 group-hover:opacity-95 transition-opacity flex flex-col justify-end p-6">
+                        <h3 class="font-playfair text-lg text-ivory">Ánh Đèn Đêm Huyền Diệu</h3>
+                    </div>
+                </div>
+
+                <!-- Gallery Extra 3 -->
+                <div class="relative group overflow-hidden rounded-xl border border-champagne-gold/30 cursor-pointer shadow-xl h-72">
+                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=800" alt="Bàn tiệc cưới" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-midnight-navy/90 via-transparent opacity-80 group-hover:opacity-95 transition-opacity flex flex-col justify-end p-6">
+                        <h3 class="font-playfair text-lg text-ivory">Yến Tiệc Sang Trọng</h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- EVENT DETAILS SECTION -->
+    <section id="event" class="py-20 md:py-32 px-6 bg-paper-grain relative">
+        <div class="max-w-4xl mx-auto">
+            
+            <div class="text-center mb-16 fade-in-up">
+                <span class="font-sans text-xs uppercase tracking-[0.25em] text-champagne-gold">Thời Gian & Địa Điểm</span>
+                <h2 class="font-playfair text-3xl md:text-5xl font-light text-forest-green mt-2 mb-4">Lễ Thành Hôn</h2>
+                <p class="font-cormorant text-xl text-gray-600">Sự hiện diện của Quý vị là niềm vinh hạnh của gia đình chúng tôi!</p>
+            </div>
+
+            <!-- Event Card -->
+            <div class="bg-white border border-champagne-gold/30 p-8 md:p-12 rounded-3xl shadow-xl text-center max-w-2xl mx-auto fade-in-up relative overflow-hidden">
+                <div class="w-16 h-16 rounded-full bg-blush-pink text-forest-green flex items-center justify-center mx-auto mb-6 text-2xl border border-champagne-gold/30">
+                    <i class="fas fa-glass-cheers"></i>
+                </div>
+                
+                <h3 class="font-playfair text-3xl text-forest-green mb-1">LỄ THÀNH HÔN</h3>
+                <p class="font-sans text-xs text-champagne-gold tracking-widest uppercase mb-6">NHÀ HÀNG TIỆC CƯỚI SAPPHIRE PALACE</p>
+                
+                <div class="space-y-4 font-cormorant text-xl text-gray-700 border-t border-b border-gray-100 py-8 my-6">
+                    <p class="font-semibold text-midnight-navy flex items-center justify-center gap-2">
+                        <i class="far fa-calendar-alt text-champagne-gold"></i> THỨ BẢY, 24.05.2025
+                    </p>
+                    <p class="font-semibold text-midnight-navy flex items-center justify-center gap-2">
+                        <i class="far fa-clock text-champagne-gold"></i> ĐÓN KHÁCH: 17:30
+                    </p>
+                    <p class="flex items-center justify-center gap-2 text-base text-gray-600">
+                        <i class="fas fa-map-marker-alt text-champagne-gold"></i> 17 Nguyễn Lương Bằng, Q.7, TP.HCM
+                    </p>
+                </div>
+
+                <a href="https://maps.google.com/?q=17+Nguyen+Luong+Bang+District+7+Ho+Chi+Minh" target="_blank" class="inline-block px-8 py-3 rounded-full bg-midnight-navy text-champagne-gold font-sans text-xs tracking-widest uppercase hover:bg-champagne-gold hover:text-midnight-navy transition duration-300 shadow-md">
+                    <i class="fas fa-directions mr-2"></i> Chỉ Đường Trên Google Maps
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- RSVP & LIVE GUESTBOOK SECTION -->
+    <section id="rsvp" class="py-20 md:py-32 px-6 bg-midnight-navy text-ivory relative">
+        <div class="max-w-4xl mx-auto">
+            
+            <div class="border border-champagne-gold/40 p-8 md:p-16 rounded-3xl bg-midnight-navy/90 backdrop-blur-sm shadow-2xl relative fade-in-up">
+                
+                <div class="text-center mb-10">
+                    <span class="font-sans text-xs text-champagne-gold tracking-widest uppercase">Xác Nhận Tham Dự & Sổ Tay</span>
+                    <h2 class="font-playfair text-3xl md:text-5xl font-light text-ivory mt-1 mb-2">RSVP V&C</h2>
+                    <p class="font-cormorant text-xl text-ivory/80">Vui lòng xác nhận để chúng tôi chuẩn bị đón tiếp Quý vị được chu đáo nhất.</p>
+                </div>
+
+                <!-- Interactive Form -->
+                <form id="rsvpForm" class="space-y-6 font-sans text-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-champagne-gold mb-2 text-xs uppercase tracking-wider">Họ và Tên Quý Khách *</label>
+                            <input type="text" id="guestName" required placeholder="Nhập tên của bạn" class="w-full bg-navy-accent/50 border border-champagne-gold/30 rounded-lg px-4 py-3 text-ivory focus:outline-none focus:border-champagne-gold transition">
+                        </div>
+                        <div>
+                            <label class="block text-champagne-gold mb-2 text-xs uppercase tracking-wider">Số Điện Thoại</label>
+                            <input type="tel" id="guestPhone" placeholder="Nhập số điện thoại" class="w-full bg-navy-accent/50 border border-champagne-gold/30 rounded-lg px-4 py-3 text-ivory focus:outline-none focus:border-champagne-gold transition">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-champagne-gold mb-2 text-xs uppercase tracking-wider">Xác Nhận Tham Dự</label>
+                            <select id="guestAttendance" class="w-full bg-navy-accent/50 border border-champagne-gold/30 rounded-lg px-4 py-3 text-ivory focus:outline-none focus:border-champagne-gold transition">
+                                <option value="Tham dự chung vui" class="bg-midnight-navy">Tôi Sẽ Đến Tham Dự</option>
+                                <option value="Rất tiếc vắng mặt" class="bg-midnight-navy">Rất Tiếc Không Thể Đến</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-champagne-gold mb-2 text-xs uppercase tracking-wider">Số Người Tham Dự</label>
+                            <select id="guestCount" class="w-full bg-navy-accent/50 border border-champagne-gold/30 rounded-lg px-4 py-3 text-ivory focus:outline-none focus:border-champagne-gold transition">
+                                <option value="1 người" class="bg-midnight-navy">1 Người</option>
+                                <option value="2 người" class="bg-midnight-navy">2 Người</option>
+                                <option value="3 người" class="bg-midnight-navy">3 Người</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-champagne-gold mb-2 text-xs uppercase tracking-wider">Lời Chúc Dành Cho Hải Vương & Hoàng Cường</label>
+                        <textarea id="guestWishes" rows="4" placeholder="Gửi gắm lời chúc hạnh phúc..." class="w-full bg-navy-accent/50 border border-champagne-gold/30 rounded-lg px-4 py-3 text-ivory focus:outline-none focus:border-champagne-gold transition"></textarea>
+                    </div>
+
+                    <div class="text-center pt-4">
+                        <button type="submit" class="w-full md:w-auto px-10 py-4 bg-champagne-gold text-midnight-navy font-semibold rounded-full uppercase tracking-widest hover:bg-ivory transition-all duration-300 shadow-xl">
+                            Gửi Phản Hồi RSVP & Lời Chúc
+                        </button>
+                    </div>
+                </form>
+
+                <div id="responseMessage" class="hidden mt-6 p-4 rounded-xl bg-forest-green/90 text-champagne text-center font-cormorant text-lg border border-champagne-gold/40">
+                    Cảm ơn bạn đã gửi phản hồi! Hải Vương & Hoàng Cường rất hân hạnh được đón tiếp bạn trong ngày vui trọng đại.
+                </div>
+
+            </div>
+
+            <!-- LIVE WISHES / GUESTBOOK STREAM -->
+            <div class="mt-16 fade-in-up">
+                <div class="text-center mb-8">
+                    <h3 class="font-playfair text-2xl md:text-3xl text-ivory">Sổ Tay Lời Chúc Yêu Thương</h3>
+                    <p class="font-cormorant text-champagne text-lg">Những lời chúc tốt đẹp từ gia đình và bạn bè gửi đến cô dâu chú rể</p>
+                </div>
+                
+                <div id="guestbookContainer" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-h-[500px] overflow-y-auto pr-2">
+                    <!-- Dynamic items will be injected here -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CLOSING FOOTER SECTION -->
+    <footer class="py-16 bg-midnight-navy text-ivory/70 text-center border-t border-champagne-gold/20 font-cormorant">
+        <div class="max-w-4xl mx-auto px-6 space-y-4">
+            <h3 class="font-script text-4xl text-champagne-gold">Nguyễn Phạm Hải Vương & Lê Hoàng Cường</h3>
+            <p class="font-playfair italic text-lg text-ivory/80">"Sự hiện diện của Quý vị là niềm vinh hạnh của gia đình chúng tôi!"</p>
+            <div class="pt-6 text-xs font-sans tracking-widest text-ivory/40 uppercase">
+                &copy; 2025 V&C WEDDING • ROYAL GARDEN EDITION
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // 1. Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            });
+        });
+
+        // 2. RSVP & Frontend Guestbook with localStorage
+        const rsvpForm = document.getElementById('rsvpForm');
+        const responseMessage = document.getElementById('responseMessage');
+        const guestbookContainer = document.getElementById('guestbookContainer');
+
+        // Initial default sample wishes if empty
+        const defaultWishes = [
+            { name: "Gia đình Bác An", attendance: "Tham dự chung vui", wishes: "Chúc hai cháu trăm năm hạnh phúc, đầu bạc răng long!", time: "Hôm qua" },
+            { name: "Minh Thư & Hoàng Long", attendance: "Tham dự chung vui", wishes: "Hạnh phúc viên mãn nhé Hải Vương & Hoàng Cường tuyệt vời!", time: "2 ngày trước" }
+        ];
+
+        function getStoredWishes() {
+            const data = localStorage.getItem('vc_wedding_wishes');
+            if (!data) {
+                localStorage.setItem('vc_wedding_wishes', JSON.stringify(defaultWishes));
+                return defaultWishes;
+            }
+            try {
+                return JSON.parse(data);
+            } catch (e) {
+                return defaultWishes;
+            }
+        }
+
+        function renderGuestbook() {
+            const wishes = getStoredWishes();
+            guestbookContainer.innerHTML = '';
+            
+            if (wishes.length === 0) {
+                guestbookContainer.innerHTML = '<p class="text-center text-ivory/60 col-span-2 font-cormorant text-lg">Chưa có lời chúc nào. Hãy là người đầu tiên gửi lời chúc!</p>';
+                return;
+            }
+
+            wishes.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-navy-accent/50 border border-champagne-gold/30 p-6 rounded-2xl shadow-lg space-y-3";
+                card.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <h4 class="font-playfair text-xl text-champagne-gold font-medium">${escapeHTML(item.name)}</h4>
+                        <span class="text-xs font-sans px-3 py-1 rounded-full bg-midnight-navy border border-champagne-gold/40 text-champagne">${escapeHTML(item.attendance)}</span>
+                    </div>
+                    <p class="font-cormorant text-lg text-ivory/90 italic">"${escapeHTML(item.wishes || 'Chúc mừng hạnh phúc hai bạn!')}"</p>
+                    <div class="text-right text-xs font-sans text-ivory/40">${escapeHTML(item.time)}</div>
+                `;
+                guestbookContainer.appendChild(card);
+            });
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
+        }
+
+        rsvpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('guestName').value.trim();
+            const attendance = document.getElementById('guestAttendance').value;
+            const count = document.getElementById('guestCount').value;
+            const wishesText = document.getElementById('guestWishes').value.trim();
+
+            if (!name) return;
+
+            const newEntry = {
+                name: name,
+                attendance: attendance + ' (' + count + ')',
+                wishes: wishesText,
+                time: 'Vừa xong'
+            };
+
+            const currentWishes = getStoredWishes();
+            currentWishes.unshift(newEntry);
+            localStorage.setItem('vc_wedding_wishes', JSON.stringify(currentWishes));
+
+            renderGuestbook();
+            responseMessage.classList.remove('hidden');
+            rsvpForm.reset();
+            
+            setTimeout(() => {
+                responseMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        });
+
+        // Initial load
+        renderGuestbook();
+
+        // 3. Fairy Lights Canvas
+        const canvas = document.getElementById('fairy-lights-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.5 + 1;
+                this.alpha = Math.random() * 0.8 + 0.2;
+                this.speedAlpha = (Math.random() * 0.02 + 0.005) * (Math.random() > 0.5 ? 1 : -1);
+                this.color = Math.random() > 0.3 ? '#C5A059' : '#F4E3E3';
+            }
+
+            update() {
+                this.alpha += this.speedAlpha;
+                if (this.alpha <= 0.1 || this.alpha >= 0.9) {
+                    this.speedAlpha = -this.speedAlpha;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        const particles = Array.from({ length: 45 }, () => new Particle());
+
+        function animateLights() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateLights);
+        }
+        animateLights();
+
+        // 4. Scroll Reveal Animations
+        const observerOptions = { threshold: 0.15 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+        // 5. Music Player Toggle
+        const musicToggle = document.getElementById('musicToggle');
+        const musicIcon = document.getElementById('musicIcon');
+        let isPlaying = false;
+
+        musicToggle.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                musicIcon.className = "fas fa-volume-up text-sm text-champagne-gold";
+                musicToggle.classList.add('animate-pulse');
+            } else {
+                musicIcon.className = "fas fa-music text-sm text-champagne-gold";
+                musicToggle.classList.remove('animate-pulse');
+            }
+        });
+    </script>
+</body>
+</html>
